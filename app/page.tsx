@@ -36,7 +36,7 @@ export default function HomePage() {
           )}
 
           {/* SIGNED IN */}
-          {isSignedIn && <UserButton afterSignOutUrl="/" />}
+          {isSignedIn && <UserButton />}
 
         </div>
       </nav>
