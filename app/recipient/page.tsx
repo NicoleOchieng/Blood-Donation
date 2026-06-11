@@ -4,13 +4,14 @@ import { useState } from "react";
 
 export default function RecipientPage() {
   const [form, setForm] = useState({
-    name: "",
-    bloodGroupNeeded: "",
+    blood_group_needed: "",
     hospital: "",
     location: "",
     urgency: "normal",
-    phone: "",
   });
+
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -18,89 +19,101 @@ export default function RecipientPage() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
+    setMessage("");
 
-    console.log("RECIPIENT REQUEST:", form);
+    const res = await fetch("/api/requests", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(form),
+    });
 
-    alert("Blood request submitted!");
+    const data = await res.json();
+
+    if (res.ok) {
+      setMessage("Blood request submitted successfully 🏥");
+      setForm({
+        blood_group_needed: "",
+        hospital: "",
+        location: "",
+        urgency: "normal",
+      });
+    } else {
+      setMessage(data.error || "Something went wrong");
+    }
+
+    setLoading(false);
   };
 
   return (
-    <main className="min-h-screen flex items-center justify-center bg-blue-50 px-6">
-      <div className="w-full max-w-xl bg-white p-6 rounded-2xl shadow">
-
-        <h1 className="text-2xl font-bold text-blue-600 mb-4">
+    <main className="min-h-screen flex items-center justify-center bg-blue-50 p-6">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white p-8 rounded-xl shadow-md w-full max-w-md space-y-4"
+      >
+        <h1 className="text-2xl font-bold text-blue-600">
           Request Blood
         </h1>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <select
+          name="blood_group_needed"
+          value={form.blood_group_needed}
+          onChange={handleChange}
+          className="w-full border p-2 rounded"
+        >
+          <option value="">Select Blood Group Needed</option>
+          <option value="A+">A+</option>
+          <option value="A-">A-</option>
+          <option value="B+">B+</option>
+          <option value="B-">B-</option>
+          <option value="O+">O+</option>
+          <option value="O-">O-</option>
+          <option value="AB+">AB+</option>
+          <option value="AB-">AB-</option>
+        </select>
 
-          <input
-            name="name"
-            placeholder="Your Name"
-            className="w-full border p-2 rounded"
-            onChange={handleChange}
-            required
-          />
+        <input
+          name="hospital"
+          placeholder="Hospital Name"
+          value={form.hospital}
+          onChange={handleChange}
+          className="w-full border p-2 rounded"
+        />
 
-          <select
-            name="bloodGroupNeeded"
-            className="w-full border p-2 rounded"
-            onChange={handleChange}
-            required
-          >
-            <option value="">Select Blood Group Needed</option>
-            <option>A+</option>
-            <option>A-</option>
-            <option>B+</option>
-            <option>B-</option>
-            <option>AB+</option>
-            <option>AB-</option>
-            <option>O+</option>
-            <option>O-</option>
-          </select>
+        <input
+          name="location"
+          placeholder="Location"
+          value={form.location}
+          onChange={handleChange}
+          className="w-full border p-2 rounded"
+        />
 
-          <input
-            name="hospital"
-            placeholder="Hospital Name"
-            className="w-full border p-2 rounded"
-            onChange={handleChange}
-            required
-          />
+        <select
+          name="urgency"
+          value={form.urgency}
+          onChange={handleChange}
+          className="w-full border p-2 rounded"
+        >
+          <option value="normal">Normal</option>
+          <option value="urgent">Urgent</option>
+          <option value="critical">Critical</option>
+        </select>
 
-          <input
-            name="location"
-            placeholder="Location"
-            className="w-full border p-2 rounded"
-            onChange={handleChange}
-            required
-          />
+        <button
+          disabled={loading}
+          className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
+        >
+          {loading ? "Submitting..." : "Request Blood"}
+        </button>
 
-          <select
-            name="urgency"
-            className="w-full border p-2 rounded"
-            onChange={handleChange}
-          >
-            <option value="normal">Normal</option>
-            <option value="urgent">Urgent</option>
-            <option value="critical">Critical</option>
-          </select>
-
-          <input
-            name="phone"
-            placeholder="Phone Number"
-            className="w-full border p-2 rounded"
-            onChange={handleChange}
-            required
-          />
-
-          <button className="w-full bg-blue-600 text-white py-2 rounded">
-            Submit Request
-          </button>
-
-        </form>
-      </div>
+        {message && (
+          <p className="text-center text-sm mt-2">{message}</p>
+        )}
+      </form>
     </main>
   );
 }
