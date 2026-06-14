@@ -78,7 +78,7 @@ export default function HomePage() {
 
           <Link
             href="/recipient"
-            className="px-8 py-3 bg-white border-2 border-[#1A1A1A] text-[#1A1A1A] rounded-xl font-semibold hover:bg-[#1A1A1A] hover:text-white transition-colors"
+           className="px-8 py-3 bg-[#C8102E] text-white rounded-xl font-semibold hover:bg-[#A50D26] transition-colors shadow-lg shadow-[#C8102E]/20"
           >
             Request Blood
           </Link>
@@ -157,25 +157,25 @@ export default function HomePage() {
           </div>
 
           {/* Recipient path */}
-          <div className="bg-white rounded-2xl p-8 border border-blue-100 shadow-sm flex flex-col">
-            <h3 className="text-xl font-bold text-blue-600 mb-4">For Recipients</h3>
+          <div className="bg-white rounded-2xl p-8 border border-red-100 shadow-sm flex flex-col">
+            <h3 className="text-xl font-bold text-red-600 mb-4">For Recipients</h3>
             <ol className="space-y-4 text-gray-700 flex-1">
               <li className="flex gap-3">
-                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-50 text-blue-600 text-sm font-bold flex items-center justify-center">1</span>
+                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-red-50 text-red-600 text-sm font-bold flex items-center justify-center">1</span>
                 <span>Sign up and post a request with the blood type needed, hospital, and urgency level.</span>
               </li>
               <li className="flex gap-3">
-                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-50 text-blue-600 text-sm font-bold flex items-center justify-center">2</span>
+                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-red-50 text-red-600 text-sm font-bold flex items-center justify-center">2</span>
                 <span>Browse the donor list, filtered by the blood type you need.</span>
               </li>
               <li className="flex gap-3">
-                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-50 text-blue-600 text-sm font-bold flex items-center justify-center">3</span>
+                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-red-50 text-red-600 text-sm font-bold flex items-center justify-center">3</span>
                 <span>Contact a matching donor directly using the phone number on their profile.</span>
               </li>
             </ol>
             <Link
-              href="/receiver"
-              className="mt-6 inline-block text-blue-600 font-semibold hover:underline"
+              href="/donors"
+              className="mt-6 inline-block text-red-600 font-semibold hover:underline"
             >
               Browse available donors →
             </Link>
@@ -183,25 +183,29 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* URGENT CALLOUT */}
-      <section className="px-6 py-12">
-        <div className="max-w-5xl mx-auto bg-[#F4B942]/15 border border-[#F4B942] rounded-2xl p-8 flex flex-col md:flex-row items-center justify-between gap-4">
-          <div>
-            <p className="font-bold text-lg text-[#1A1A1A]">
-              Type O-negative is needed in your area right now.
-            </p>
-            <p className="text-gray-600 mt-1">
-              O-negative can be given to anyone, making it critical in emergencies.
-            </p>
-          </div>
-          <Link
-            href="/receiver"
-            className="px-6 py-3 bg-[#1A1A1A] text-white rounded-xl font-semibold hover:bg-black transition-colors whitespace-nowrap"
-          >
-            Check if I match
-          </Link>
-        </div>
-      </section>
+     {/* URGENT CALLOUT */}
+<section className="px-6 py-12">
+  <div className="max-w-5xl mx-auto bg-[#F4B942]/15 border border-[#F4B942] rounded-2xl p-8 flex flex-col md:flex-row items-center justify-between gap-4">
+
+    <div>
+      <p className="font-bold text-lg text-[#1A1A1A]">
+        Find compatible blood donors instantly.
+      </p>
+
+      <p className="text-gray-600 mt-1">
+        Our system matches patients with available donors based on blood type and location in real time.
+      </p>
+    </div>
+
+    <Link
+      href="/match"
+      className="px-6 py-3 bg-[#1A1A1A] text-white rounded-xl font-semibold hover:bg-black transition-colors whitespace-nowrap"
+    >
+      Check Available Matches
+    </Link>
+
+  </div>
+</section>
 
       {/* TESTIMONIALS */}
       <section className="px-6 py-20 max-w-5xl mx-auto">
@@ -255,7 +259,7 @@ export default function HomePage() {
             </SignUpButton>
           ) : (
             <Link
-              href="/receiver"
+              href="/dashboard"
               className="px-8 py-3 bg-white text-[#C8102E] rounded-xl font-semibold hover:bg-[#FFE5E5] transition-colors inline-block"
             >
               Go to Dashboard

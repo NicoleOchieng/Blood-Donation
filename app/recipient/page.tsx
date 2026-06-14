@@ -21,6 +21,7 @@ export default function RecipientPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
     setLoading(true);
     setMessage("");
 
@@ -50,70 +51,97 @@ export default function RecipientPage() {
   };
 
   return (
-    <main className="min-h-screen flex items-center justify-center bg-blue-50 p-6">
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white p-8 rounded-xl shadow-md w-full max-w-md space-y-4"
-      >
-        <h1 className="text-2xl font-bold text-blue-600">
-          Request Blood
+  <main className="min-h-screen bg-red-50 flex items-center justify-center px-4">
+
+    <div className="w-full max-w-lg bg-white rounded-2xl shadow-lg border border-red-100 p-8">
+
+      {/* HEADER */}
+      <div className="text-center mb-6">
+        <h1 className="text-3xl font-bold text-red-600">
+          Request Blood 🏥
         </h1>
 
+        <p className="text-gray-600 mt-2 text-sm">
+          Submit an emergency or scheduled blood requirement. We’ll help match you with donors.
+        </p>
+      </div>
+
+      {/* FORM */}
+      <form onSubmit={handleSubmit} className="space-y-4">
+
+        {/* BLOOD GROUP */}
         <select
           name="blood_group_needed"
           value={form.blood_group_needed}
           onChange={handleChange}
-          className="w-full border p-2 rounded"
+          className="w-full border border-gray-200 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-300"
         >
           <option value="">Select Blood Group Needed</option>
-          <option value="A+">A+</option>
-          <option value="A-">A-</option>
-          <option value="B+">B+</option>
-          <option value="B-">B-</option>
-          <option value="O+">O+</option>
-          <option value="O-">O-</option>
-          <option value="AB+">AB+</option>
-          <option value="AB-">AB-</option>
+          {["A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"].map((b) => (
+            <option key={b} value={b}>
+              {b}
+            </option>
+          ))}
         </select>
 
+        {/* HOSPITAL */}
         <input
           name="hospital"
-          placeholder="Hospital Name"
+          placeholder="Hospital Name (e.g. Kenyatta Hospital)"
           value={form.hospital}
           onChange={handleChange}
-          className="w-full border p-2 rounded"
+          className="w-full border border-gray-200 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-300"
         />
 
+        {/* LOCATION */}
         <input
           name="location"
-          placeholder="Location"
+          placeholder="Location (City / Area)"
           value={form.location}
           onChange={handleChange}
-          className="w-full border p-2 rounded"
+          className="w-full border border-gray-200 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-300"
         />
 
+        {/* URGENCY */}
         <select
           name="urgency"
           value={form.urgency}
           onChange={handleChange}
-          className="w-full border p-2 rounded"
+          className="w-full border border-gray-200 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-300"
         >
           <option value="normal">Normal</option>
           <option value="urgent">Urgent</option>
           <option value="critical">Critical</option>
         </select>
 
+        {/* BUTTON */}
         <button
+          type="submit"
           disabled={loading}
-          className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
+          className="w-full bg-red-600 text-white py-3 rounded-lg font-semibold hover:bg-red
+          -700 transition disabled:opacity-50"
         >
-          {loading ? "Submitting..." : "Request Blood"}
+          {loading ? "Submitting Request..." : "Submit Emergency Request 🚨"}
         </button>
 
+        {/* MESSAGE */}
         {message && (
-          <p className="text-center text-sm mt-2">{message}</p>
+          <div className="text-center text-sm mt-3">
+            <p className="text-green-600 font-medium">
+              {message}
+            </p>
+          </div>
         )}
+
       </form>
-    </main>
+
+      {/* FOOTER NOTE */}
+      <p className="text-xs text-gray-500 text-center mt-6">
+        Your request will be visible to matching donors in your area.
+      </p>
+
+    </div>
+
+  </main>
   );
 }
