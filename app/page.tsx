@@ -152,13 +152,13 @@ export default function HomePage() {
               href="/requests"
               className="mt-6 inline-block text-[#C8102E] font-semibold hover:underline"
             >
-              See who needs blood right now →
+              Browse available donors →
             </Link>
           </div>
 
           {/* Recipient path */}
           <div className="bg-white rounded-2xl p-8 border border-red-100 shadow-sm flex flex-col">
-            <h3 className="text-xl font-bold text-red-600 mb-4">For Recipients</h3>
+            <h3 className="text-xl font-bold text-red-600 mb-4">For Requests</h3>
             <ol className="space-y-4 text-gray-700 flex-1">
               <li className="flex gap-3">
                 <span className="flex-shrink-0 w-6 h-6 rounded-full bg-red-50 text-red-600 text-sm font-bold flex items-center justify-center">1</span>
@@ -177,7 +177,7 @@ export default function HomePage() {
               href="/donors"
               className="mt-6 inline-block text-red-600 font-semibold hover:underline"
             >
-              Browse available donors →
+              See who needs blood right now →
             </Link>
           </div>
         </div>
